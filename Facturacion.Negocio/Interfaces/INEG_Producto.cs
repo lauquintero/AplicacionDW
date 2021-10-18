@@ -11,13 +11,13 @@ namespace Facturacion.Negocio.Interfaces
         /// Listado de todos los productos
         /// </summary>
         /// <returns></returns>
-        List<Producto> ListadoProdcutos();
+        List<Producto> ListadoProductos();
 
         /// <summary>
         /// Listado de productos por ano
         /// </summary>
         /// <returns></returns>
-        List<Producto> ListadoProductosAno();
+        List<ProductosVentasAño> ListadoProductosAno();
         
         /// <summary>
         /// Listado del stock de los productos

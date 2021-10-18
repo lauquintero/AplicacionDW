@@ -1,18 +1,15 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.IO;
+using System.Reflection;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace FacturacionDigitalW
 {
@@ -48,6 +45,18 @@ namespace FacturacionDigitalW
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.Default.GetBytes(Configuration["Jwt:Key"]))
                     };
                 });
+
+            services.Configure<Facturacion.Datos.Modelos.DbConnectionInfo>(settings => Configuration.GetSection("ConnectionStrings").Bind(settings));
+            services.AddScoped<Facturacion.Datos.Modelos.FacturaDBDigitalContext>();
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc(name: "v1", new OpenApiInfo { Title = "Documentación API PreEnvios Interrapidisimo SA", Version = "V1" });
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
+            });
+
             services.AddControllers();
         }
 
@@ -58,6 +67,14 @@ namespace FacturacionDigitalW
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseSwagger();
+
+            app.UseSwaggerUI(c =>
+            {
+                var swaggerJsonBasePath = string.IsNullOrWhiteSpace(c.RoutePrefix) ? "." : "..";
+                c.SwaggerEndpoint($"{swaggerJsonBasePath}/swagger/v1/swagger.json", "Version1");
+            });
 
             app.UseHttpsRedirection();
 

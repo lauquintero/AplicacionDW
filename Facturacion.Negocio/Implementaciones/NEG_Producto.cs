@@ -1,26 +1,53 @@
-﻿using Facturacion.Entidades;
+﻿using Facturacion.Datos.Interfaces;
+using Facturacion.Entidades;
 using Facturacion.Negocio.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 
 namespace Facturacion.Negocio.Implementaciones
 {
     public class NEG_Producto : INEG_Producto
     {
-        public List<Producto> ListadoProdcutos()
+        #region Constructor
+
+        internal IProducto RepositorioProducto;
+        internal IParametrizacion RepositorioParametizacion;
+
+        public NEG_Producto(IProducto repoproducto, IParametrizacion repoparametrizacion)
         {
-            throw new NotImplementedException();
+            RepositorioProducto = repoproducto;
+            RepositorioParametizacion = repoparametrizacion;
         }
 
-        public List<Producto> ListadoProductosAno()
+        #endregion
+
+        public List<Producto> ListadoProductos()
         {
-            throw new NotImplementedException();
+            return (List<Producto>)RepositorioProducto.ListadoProducto();
+        }
+
+        public List<ProductosVentasAño> ListadoProductosAno()
+        {
+            return (List<Entidades.ProductosVentasAño>)RepositorioProducto.ListadoProductoFacturados();            
         }
 
         public List<Producto> ListadoProductosStock()
         {
-            throw new NotImplementedException();
+            List<Producto> listado = (List<Producto>)RepositorioProducto.ListadoProducto();
+            List<Producto> Result = new List<Producto>();
+
+            if (listado != null && listado.Count > 0)
+            {
+                int cantidadunidadesminimas;
+                if (int.TryParse(RepositorioParametizacion.ObtenerValorParametrizacion("stockMinimo"),out cantidadunidadesminimas))
+                {
+                    Result = (List<Producto>)listado.Where(x=>x.Cantidad < cantidadunidadesminimas);
+                }                   
+            }
+
+            return Result;
+
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Facturacion.Entidades;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
 
 namespace Facturacion.Negocio.Interfaces
@@ -11,12 +12,12 @@ namespace Facturacion.Negocio.Interfaces
         /// Listado de clientes edad
         /// </summary>
         /// <returns></returns>
-        List<Cliente> ListadoClientesEdad();
+        ObservableCollection<Cliente> ListadoClientesEdad();
 
         /// <summary>
         /// Listado clientes con relacion de ventas
         /// </summary>
         /// <returns></returns>
-        List<Cliente> ListadoClientesVentas();
+        ObservableCollection<Cliente> ListadoClientesVentas();
     }
 }

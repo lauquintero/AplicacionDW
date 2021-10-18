@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.Extensions.Options;
 
 #nullable disable
 
@@ -21,13 +22,18 @@ namespace Facturacion.Datos.Modelos
         public virtual DbSet<Facturacion> Facturacions { get; set; }
         public virtual DbSet<Parametrizacion> Parametrizacions { get; set; }
         public virtual DbSet<Producto> Productos { get; set; }
+        private readonly string _connectionString;
+
+        public FacturaDBDigitalContext(IOptions<DbConnectionInfo> dbConnectionInfo)
+        {
+            _connectionString = dbConnectionInfo.Value.FacturaDBDigitalContext;
+        }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=DESKTOP-KLQHGG4\\LAUJDB;Database=FacturaDBDigital;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer(_connectionString);
             }
         }
 
@@ -132,5 +138,10 @@ namespace Facturacion.Datos.Modelos
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+    }
+
+    public class DbConnectionInfo
+    {
+        public string FacturaDBDigitalContext { get; set; }
     }
 }

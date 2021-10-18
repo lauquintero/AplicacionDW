@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Facturacion.Entidades
+namespace Facturacion.Datos.Interfaces
 {
-    public class Parametrizacion
+    public interface IFacturacion
     {
     }
 }
