@@ -26,7 +26,7 @@ namespace Facturacion.Datos.Modelos
 
         public FacturaDBDigitalContext(IOptions<DbConnectionInfo> dbConnectionInfo)
         {
-            _connectionString = dbConnectionInfo.Value.FacturaDBDigitalContext;
+            _connectionString = dbConnectionInfo.Value.FacContext;
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -142,6 +142,6 @@ namespace Facturacion.Datos.Modelos
 
     public class DbConnectionInfo
     {
-        public string FacturaDBDigitalContext { get; set; }
+        public string FacContext { get; set; }
     }
 }

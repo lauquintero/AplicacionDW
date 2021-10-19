@@ -16,7 +16,9 @@ namespace Facturacion.Singleton
             Servicios.AddSingleton<INEG_Cliente,NEG_Cliente>();            
             ///Servicio/Repocitorio de datos
             Servicios.AddSingleton<ICliente,Cliente>(); 
-            Servicios.AddSingleton<IProducto,Producto>(); 
+            Servicios.AddSingleton<IProducto,Producto>();
+            Servicios.AddSingleton<IParametrizacion,Parametrizacion>(); 
+            Servicios.AddSingleton<IFacturacion,Datos.Modelos.Facturacion>(); 
             
             return Servicios;
         }

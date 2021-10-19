@@ -1,6 +1,8 @@
+using Facturacion.Singleton;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -25,6 +27,8 @@ namespace FacturacionDigitalW
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            Singleton.Registro(services);
+
             services.AddAuthentication(x => {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -46,7 +50,8 @@ namespace FacturacionDigitalW
                     };
                 });
 
-            services.Configure<Facturacion.Datos.Modelos.DbConnectionInfo>(settings => Configuration.GetSection("ConnectionStrings").Bind(settings));
+            services.Configure<Facturacion.Datos.Modelos.DbConnectionInfo>(settings => Configuration.GetSection("ConnectionStrings:MyContext").Bind(settings));
+            //services.AddDbContext<Facturacion.Datos.Modelos.FacturaDBDigitalContext>(options => options.UseSqlServer((System.Data.Common.DbConnection)Configuration.GetSection("ConnectionStrings:MyContext")));
             services.AddScoped<Facturacion.Datos.Modelos.FacturaDBDigitalContext>();
 
             services.AddSwaggerGen(c =>
@@ -58,6 +63,7 @@ namespace FacturacionDigitalW
             });
 
             services.AddControllers();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

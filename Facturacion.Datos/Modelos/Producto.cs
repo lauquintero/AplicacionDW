@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Facturacion.Datos.Modelos
 {
-    public partial class Producto : IProducto
+    public partial class Producto : IProducto 
     {
         public int ProIdProducto { get; set; }
         public string ProNombre { get; set; }
