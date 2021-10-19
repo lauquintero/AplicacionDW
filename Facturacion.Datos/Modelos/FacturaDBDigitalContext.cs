@@ -1,7 +1,6 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Configuration;
 
 #nullable disable
 
@@ -22,12 +21,7 @@ namespace Facturacion.Datos.Modelos
         public virtual DbSet<Facturacion> Facturacions { get; set; }
         public virtual DbSet<Parametrizacion> Parametrizacions { get; set; }
         public virtual DbSet<Producto> Productos { get; set; }
-        private readonly string _connectionString;
-
-        public FacturaDBDigitalContext(IOptions<DbConnectionInfo> dbConnectionInfo)
-        {
-            _connectionString = dbConnectionInfo.Value.FacContext;
-        }
+        private readonly string _connectionString;           
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -138,10 +132,5 @@ namespace Facturacion.Datos.Modelos
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
-    }
-
-    public class DbConnectionInfo
-    {
-        public string FacContext { get; set; }
-    }
+    }      
 }

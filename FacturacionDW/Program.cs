@@ -18,6 +18,12 @@ namespace FacturacionDW
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
+             .ConfigureAppConfiguration((hostingContext, config) =>
+             {
+                 config.AddJsonFile("ConfigMapper.json",
+                     optional: true,
+                     reloadOnChange: true);
+             })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
