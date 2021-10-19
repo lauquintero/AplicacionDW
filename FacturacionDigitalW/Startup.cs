@@ -51,7 +51,7 @@ namespace FacturacionDigitalW
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc(name: "v1", new OpenApiInfo { Title = "Documentación API PreEnvios Interrapidisimo SA", Version = "V1" });
+                c.SwaggerDoc(name: "v1", new OpenApiInfo { Title = "Documentación API Facturacion", Version = "V1" });
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
