@@ -4,8 +4,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Protocols;
-using Facturacion.Datos.Modelos;
+using Facturacion.Entidades.Modelos;
 
 namespace Facturacion.Comun.Jwt
 {

@@ -11,18 +11,18 @@ namespace Facturacion.Negocio.Interfaces
         /// Listado de todos los productos
         /// </summary>
         /// <returns></returns>
-        List<Producto> ListadoProductos();
+        IEnumerable<Producto> ListadoProductos();
 
         /// <summary>
         /// Listado de productos por ano
         /// </summary>
         /// <returns></returns>
-        List<ProductosVentasAño> ListadoProductosAno();
+        IEnumerable<ProductosVentasAño> ListadoProductosAno();
         
         /// <summary>
         /// Listado del stock de los productos
         /// </summary>
         /// <returns></returns>
-        List<Producto> ListadoProductosStock();         
+        IEnumerable<Producto> ListadoProductosStock();         
     }
 }

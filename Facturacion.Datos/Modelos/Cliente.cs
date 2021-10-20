@@ -1,4 +1,7 @@
-﻿using Facturacion.Datos.Interfaces;
+﻿using Facturacion.Comun.Context;
+using Facturacion.Datos.Interfaces;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -10,10 +13,6 @@ namespace Facturacion.Datos.Modelos
 {
     public partial class Cliente : ICliente
     {
-        #region Constructor
-
-        #endregion
-
         public int CliIdCliente { get; set; }
         public string CliNombre { get; set; }
         public string CliApellidos { get; set; }

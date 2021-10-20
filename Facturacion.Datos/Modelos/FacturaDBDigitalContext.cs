@@ -1,15 +1,20 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Configuration;
+using Facturacion.Comun.Context;
 
 #nullable disable
 
 namespace Facturacion.Datos.Modelos
 {
-    public partial class FacturaDBDigitalContext : DbContext
+    public partial class FacturaDBDigitalContext : DbContext 
     {
+        internal ConecctionStringManager _conection = null;
+
         public FacturaDBDigitalContext()
         {
+            _conection = new ConecctionStringManager();
+            _connectionString = _conection.GetConecctionString();
         }
 
         public FacturaDBDigitalContext(DbContextOptions<FacturaDBDigitalContext> options)
@@ -21,7 +26,7 @@ namespace Facturacion.Datos.Modelos
         public virtual DbSet<Facturacion> Facturacions { get; set; }
         public virtual DbSet<Parametrizacion> Parametrizacions { get; set; }
         public virtual DbSet<Producto> Productos { get; set; }
-        private readonly string _connectionString;           
+        private readonly string _connectionString;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

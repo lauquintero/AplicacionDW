@@ -22,27 +22,27 @@ namespace Facturacion.Negocio.Implementaciones
 
         #endregion
 
-        public List<Producto> ListadoProductos()
+        public IEnumerable<Producto> ListadoProductos()
         {
-            return (List<Producto>)RepositorioProducto.ListadoProducto();
+            return RepositorioProducto.ListadoProducto();
         }
 
-        public List<ProductosVentasAño> ListadoProductosAno()
+        public IEnumerable<ProductosVentasAño> ListadoProductosAno()
         {
-            return (List<Entidades.ProductosVentasAño>)RepositorioProducto.ListadoProductoFacturados();            
+            return RepositorioProducto.ListadoProductoFacturados();            
         }
 
-        public List<Producto> ListadoProductosStock()
+        public IEnumerable<Producto> ListadoProductosStock()
         {
-            List<Producto> listado = (List<Producto>)RepositorioProducto.ListadoProducto();
-            List<Producto> Result = new List<Producto>();
+            IEnumerable<Producto> listado = RepositorioProducto.ListadoProducto();
+            IEnumerable<Producto> Result = null;
 
-            if (listado != null && listado.Count > 0)
+            if (listado != null && listado.Count() > 0)
             {
                 int cantidadunidadesminimas;
                 if (int.TryParse(RepositorioParametizacion.ObtenerValorParametrizacion("stockMinimo"),out cantidadunidadesminimas))
                 {
-                    Result = (List<Producto>)listado.Where(x=>x.Cantidad < cantidadunidadesminimas);
+                    Result = listado.Where(x=>x.Cantidad < cantidadunidadesminimas);
                 }                   
             }
 

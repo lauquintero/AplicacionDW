@@ -1,0 +1,62 @@
+<!--Search-->
+<app-search [placeolder]="'user'" [disableInput]="spiner" (searchOut)="buscarUsuario($event)" ></app-search>
+
+<!--Spiner-->
+<app-loading [spiner]="spiner"></app-loading>
+
+<div *ngIf="!spiner" class="row animated fadeIn">
+    <div class="col-12" >
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title"> Usuarios registrador <small>{{123}}</small>   </h3>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Imagen</th>
+                            <th>Correo</th>
+                            <th>Nombre</th>
+                            <th>Role</th>
+                            <th>Auth</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="data">
+                        <tr *ngFor="let row of data">
+                            <td>
+                                <a (click)="actualizarImagen(row)">
+                                    <img style="width: 30px;" [src]="row.img | image">
+                                </a>
+                            </td>
+                            <td>{{row.email}}</td>
+                            <td>{{row.name}}</td>
+                            <td>
+                                <select [(ngModel)]="row.role" [disabled]="usuario.role !=='ADMIN' || row._id === usuario._id" >
+                                    <option value="USER">USER</option>
+                                    <option value="ADMIN">ADMIN</option>
+                                </select>
+                            </td>
+                            <td>
+                                <label *ngIf="row.google" class=" label label-danger">Google</label>
+                                <label *ngIf="!row.google" class=" label label-info">Nornal</label>
+                            </td>
+                            <td>
+                                <button *ngIf="usuario.role ==='ADMIN' && row._id !== usuario._id" class="btn btn-primary"  (click) = "actualizarUsuario(row)">
+                                    <i class="fa fa-save"></i>
+                                </button>
+                                <button class="btn btn-danger" (click)="eliminarUsuario(row._id)">
+                                    <i class="fa fa-trash-o"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button class="btn btn-secondary" (click)="anterior()" >
+                    Anterior
+                </button>
+                {{pagina}}-{{paginas}}
+                <button class="btn btn-secondary" (click)="siguiente()" >
+                    Siguiente
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -27,19 +27,18 @@ namespace Facturacion.Datos.Modelos
             {
                 listProductos = (from p in db.Productos
                                select p);
-            }
-
-            if (listProductos.Count() > 0)
-            {
-                foreach (var item in listProductos)
+                if (listProductos.Count() > 0)
                 {
-                    Entidades.Producto _pro = new Entidades.Producto();
-                    _pro.IdProducto = item.ProIdProducto;
-                    _pro.Nombre = item.ProNombre;
-                    _pro.Cantidad = item.ProCantidad;
-                    _pro.Valor = item.ProValor;
-                    _pro.FechaCreacion = item.ProFechaCreacion;
-                    Result.Add(_pro);
+                    foreach (var item in listProductos)
+                    {
+                        Entidades.Producto _pro = new Entidades.Producto();
+                        _pro.IdProducto = item.ProIdProducto;
+                        _pro.Nombre = item.ProNombre;
+                        _pro.Cantidad = item.ProCantidad;
+                        _pro.Valor = item.ProValor;
+                        _pro.FechaCreacion = item.ProFechaCreacion;
+                        Result.Add(_pro);
+                    }
                 }
             }
 

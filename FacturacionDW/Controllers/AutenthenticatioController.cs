@@ -1,12 +1,6 @@
-﻿using System;
-
+﻿using Facturacion.Entidades.Modelos;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
 using Microsoft.Extensions.Configuration;
-using Facturacion.Datos.Modelos;
 using Facturacion.Comun.Jwt;
 
 namespace FacturacionDW.Controllers

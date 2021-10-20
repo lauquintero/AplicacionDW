@@ -1,0 +1,35 @@
+<div class="fondo-negro animated fadeIn" [ngClass]="_modalServices.oculto" >
+  <div class="modal" style="display:block;" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">{{Titulo}}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="close()"></button>
+        </div>
+        <div class="modal-body" aling="center" >
+          <div class="row">
+            <div class="card">
+              <div class="card-body" aling="center">
+                <h4 class="card-title">Imagen {{_modalServices.tipo}}</h4>
+
+                <img *ngIf="!_modalServices.fileupload else imagenruta" [src]="_modalServices.img | image:_modalServices.tipo " #imgfile style="width: 150px;">
+                <ng-template #imagenruta>
+                  <img [src]=" imagetemp" style="width: 150px;">
+                </ng-template>
+
+                <input type="file" #fileElement (change)="changed()" >
+                <br>
+                <br>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="close()">Close</button>
+          <button type="button" class="btn btn-primary" [disabled]="!_modalServices.fileupload" (click)="save()">Upload</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

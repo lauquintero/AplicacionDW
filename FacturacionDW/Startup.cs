@@ -1,4 +1,5 @@
 using Facturacion.Comun;
+using Facturacion.Comun.Context;
 using Facturacion.Singleton;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -8,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.Configuration;
 using System.Text;
 
 namespace FacturacionDW
@@ -21,6 +23,8 @@ namespace FacturacionDW
 
         public IConfiguration Configuration { get; }
 
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -28,7 +32,7 @@ namespace FacturacionDW
 
             services.AddAuthentication(x => {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;                
             })
                .AddJwtBearer(options =>
                {
@@ -45,6 +49,18 @@ namespace FacturacionDW
                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.Default.GetBytes(Configuration["Jwt:Key"]))
                    };
                });
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy(MyAllowSpecificOrigins,
+                                  builder =>
+                                  {
+                                      builder.AllowAnyMethod()
+                                      .AllowAnyHeader()
+                                      .AllowAnyOrigin();
+                                      //.WithOrigins("http://localhost:4200");
+                                  });
+            });
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -65,7 +81,9 @@ namespace FacturacionDW
                 } );
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
+
+            app.UseCors(MyAllowSpecificOrigins);
 
             app.UseRouting();
 

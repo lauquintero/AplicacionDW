@@ -23,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Facturacion.Comun\Facturacion.Comun.csproj" />
     <ProjectReference Include="..\Facturacion.Entidades\Facturacion.Entidades.csproj" />
   </ItemGroup>
 

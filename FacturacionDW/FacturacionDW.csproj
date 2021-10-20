@@ -15,7 +15,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Facturacion.Comun\Facturacion.Comun.csproj" />
-    <ProjectReference Include="..\Facturacion.Negocio\Facturacion.Negocio.csproj" />
     <ProjectReference Include="..\Facturacion.Singleton\Facturacion.Singleton.csproj" />
   </ItemGroup>
 
