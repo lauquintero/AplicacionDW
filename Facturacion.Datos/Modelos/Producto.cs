@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Data.SqlClient;
+using System.Data;
 
 #nullable disable
 
@@ -46,37 +48,32 @@ namespace Facturacion.Datos.Modelos
         }
 
         public IEnumerable<Entidades.ProductosVentasAño> ListadoProductoFacturados()
-        {
-            IEnumerable<Entidades.ProductosVentasAño> listProductos = null;
-            ObservableCollection<Entidades.Facturacion> Result = new ObservableCollection<Entidades.Facturacion>();
+        {              
+            ObservableCollection<Entidades.ProductosVentasAño> Result = new ObservableCollection<Entidades.ProductosVentasAño>();
 
             using (FacturaDBDigitalContext db = new FacturaDBDigitalContext())
-            {
-                listProductos = (IEnumerable<Entidades.ProductosVentasAño>)db.Productos.FromSqlRaw("ListadoProductosAño");
+            { 
+                var connection = (SqlConnection)db.Database.GetDbConnection();
+                var command = connection.CreateCommand();
+                command.CommandType = CommandType.StoredProcedure;
+                command.CommandText = "ListadoProductosAno";
 
-                //var list =  db.Facturacions.Join(db.Productos, fac => fac.FacIdProducto, pro => pro.ProIdProducto, (fac, pro) => new { fac, pro }).ToList();
+                connection.Open();
+                var Query = command.ExecuteReader();
 
-                //foreach (var item in list)
-                //{
-                //    Entidades.Facturacion fac = new Entidades.Facturacion()
-                //    {
-                //        Cliente = new Entidades.Cliente() { IdCliente = item.fac.FacIdCliente },
-                //        IdFacturacion = item.fac.FacIdFacturacion,
-                //        FechaVenta = item.fac.FacFechaVenta,
-                //        Productos = new Entidades.Producto()
-                //        {
-                //            IdProducto = item.pro.ProIdProducto,
-                //            Nombre = item.pro.ProNombre,
-                //            Cantidad = item.pro.ProCantidad,
-                //            Valor = item.pro.ProValor,
-                //            FechaCreacion = item.pro.ProFechaCreacion
-                //        }
-                //    };
-                //    Result.Add(fac);
-                //};
+                while (Query.Read())
+                {
+                    Entidades.ProductosVentasAño fac = new Entidades.ProductosVentasAño()
+                    {
+                        Nombreproducto = Query[0].ToString(),
+                        Mes = Query[1].ToString(),
+                        valorvendido = Convert.ToDecimal(Query[2].ToString())
+                    };
+                    Result.Add(fac);
+                };
             }
 
-            return listProductos;
+            return Result;
         }
     }
 }

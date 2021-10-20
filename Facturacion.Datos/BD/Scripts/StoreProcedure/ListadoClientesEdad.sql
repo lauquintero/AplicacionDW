@@ -14,7 +14,7 @@ alter PROCEDURE dbo.ListadoClientesEdad
 AS
 BEGIN
 	
-	Select C.CLI_Nombre + C.CLI_Apellidos as 'NombreCliente'
+	Select Distinct C.CLI_Nombre + ' ' + C.CLI_Apellidos as 'NombreCliente'
 	from Facturacion F inner join Clientes C on F.FAC_IdCliente = C.CLI_IdCliente
 	where DATEDIFF(year, C.CLI_FechaNacimiento, GETDATE()) < (select [PAR_ValorConf] from [Parametrizacion] where [PAR_NombreConf] = 'EdadClientesMinima')
 	and F.FAC_FechaVenta between '2000-01-02' and '2000-05-25'

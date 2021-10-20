@@ -23,18 +23,20 @@ namespace Facturacion.Negocio.Implementaciones
 
         #endregion
 
-        public ObservableCollection<Cliente> ListadoClientesEdad()
+        public IEnumerable<Cliente> ListadoClientesEdad()
         {
-            ObservableCollection<Entidades.Facturacion> listado = (ObservableCollection<Entidades.Facturacion>)RepositorioCliente.ListadoClienteVentas();
-            ObservableCollection<Cliente> Result = new ObservableCollection<Cliente>();
+            IEnumerable<Entidades.Facturacion> listado = RepositorioCliente.ListadoClienteVentas();
+            ObservableCollection<Cliente> _list = new ObservableCollection<Cliente>();
+            IEnumerable<Cliente> Result = null;
 
             if (listado.Count() > 0)
             {
                 int edadpar;
-                if (int.TryParse(RepositorioParametizacion.ObtenerValorParametrizacion("EdadReporte"), out edadpar))
+                if (int.TryParse(RepositorioParametizacion.ObtenerValorParametrizacion("EdadClientesMinima"), out edadpar))
                 {
                    var  query = listado.Where(x => (DateTime.Now.Year - x.Cliente.FechaNacimiento.Year) <= edadpar
-                             && x.FechaVenta >= Convert.ToDateTime("2000-02-01 00:00:00:000") && x.FechaVenta <= Convert.ToDateTime("2000-05-25 00:00:00:000"));
+                             && x.FechaVenta >= Convert.ToDateTime("2000-02-01 00:00:00") && x.FechaVenta <= Convert.ToDateTime("2000-05-25 00:00:00")
+                             );
                     
                     foreach (var item in query)
                     {
@@ -46,16 +48,17 @@ namespace Facturacion.Negocio.Implementaciones
                             Apellidos = item.Cliente.Apellidos,
                             FechaNacimiento = item.Cliente.FechaNacimiento
                         };
-                        Result.Add(cli);
+                        _list.Add(cli);
                     }
                 }
-                Result = (ObservableCollection<Cliente>)Result.Distinct();
+                Result = _list.GroupBy(c => c.IdCliente)
+                          .Select(g => g.First())
+                          .ToList();
             }
-
             return Result;
         }
 
-        public ObservableCollection<Cliente> ListadoClientesVentas()
+        public IEnumerable<Cliente> ListadoClientes(int identificacionCliente)
         {
             throw new NotImplementedException();
         }

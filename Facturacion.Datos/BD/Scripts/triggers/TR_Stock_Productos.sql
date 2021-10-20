@@ -1,4 +1,5 @@
-
+use FacturaDBDigital
+go
 CREATE TRIGGER TR_Stock_Productos ON dbo.Facturacion
     FOR INSERT
 AS

@@ -59,13 +59,18 @@ namespace Facturacion.Datos.Modelos
                 {
                     foreach (var item in Clientes)
                     {
-                        Entidades.Facturacion fac = new Entidades.Facturacion();                         
-                        fac.Cliente.IdCliente = item.cli.CliIdCliente;
-                        fac.Cliente.Identificacion = item.cli.CliIdentificacion;
-                        fac.Cliente.Nombre = item.cli.CliNombre;
-                        fac.Cliente.Apellidos = item.cli.CliApellidos;
+                        Entidades.Facturacion fac = new Entidades.Facturacion();
+                        fac.Cliente = new Entidades.Cliente() { 
+                        IdCliente = item.cli.CliIdCliente,
+                        Identificacion = item.cli.CliIdentificacion,
+                        Nombre = item.cli.CliNombre,
+                        Apellidos = item.cli.CliApellidos,
+                        FechaNacimiento = item.cli.CliFechaNacimiento
+                        };
                         fac.FechaVenta = item.fac.FacFechaVenta;
                         fac.IdFacturacion = item.fac.FacIdFacturacion;
+                        fac.Productos = new Entidades.Producto(){ IdProducto = item.fac.FacIdProducto }
+                        ;
 
                         Result.Add(fac);
                     }

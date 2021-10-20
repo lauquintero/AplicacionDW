@@ -2,12 +2,7 @@
 using Facturacion.Negocio.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Collections.ObjectModel;
 
 namespace FacturacionDigitalW.Controllers
 {
@@ -32,12 +27,36 @@ namespace FacturacionDigitalW.Controllers
         /// <summary>
         /// Obtener Listado Productos 
         /// </summary>
-        /// <returns>Listado de productos</returns>
+        /// <returns>ObservableCollection<Producto></returns>
         [HttpGet]
         [Route("ListadoProductos")]
-        public ActionResult<List<Producto>> GetProductos()
+        public ActionResult<ObservableCollection<Producto>> GetProductos()
         {
             var result = NegocioProducto.ListadoProductos();
+            return Ok(result);
+        }
+
+        /// <summary>
+        /// Obtiene un listado de productos que esten por debajo de la marca del Stock Parametrizacion.MinimoStockPermitido
+        /// </summary>
+        /// <returns>ObservableCollection<Producto></returns>
+        [HttpGet]
+        [Route("ListadoProductosStock")]
+        public ActionResult<ObservableCollection<Producto>> GetProductosStock()
+        {
+            var result = NegocioProducto.ListadoProductos();
+            return Ok(result);
+        }
+
+        /// <summary>
+        /// Obtiene un listado de valores de venta acumulado mes a mes agrupado por producto
+        /// </summary>
+        /// <returns>ObservableCollection<Producto></returns>
+        [HttpGet]
+        [Route("ListadoProductosAno")]
+        public ActionResult<ObservableCollection<Producto>> GetProductosAno()
+        {
+            var result = NegocioProducto.ListadoProductosAno();
             return Ok(result);
         }
 

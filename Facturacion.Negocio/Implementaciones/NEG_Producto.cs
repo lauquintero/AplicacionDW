@@ -40,7 +40,7 @@ namespace Facturacion.Negocio.Implementaciones
             if (listado != null && listado.Count() > 0)
             {
                 int cantidadunidadesminimas;
-                if (int.TryParse(RepositorioParametizacion.ObtenerValorParametrizacion("stockMinimo"),out cantidadunidadesminimas))
+                if (int.TryParse(RepositorioParametizacion.ObtenerValorParametrizacion("MinimoStockPermitido"),out cantidadunidadesminimas))
                 {
                     Result = listado.Where(x=>x.Cantidad < cantidadunidadesminimas);
                 }                   

@@ -12,12 +12,12 @@ namespace Facturacion.Negocio.Interfaces
         /// Listado de clientes edad
         /// </summary>
         /// <returns></returns>
-        ObservableCollection<Cliente> ListadoClientesEdad();
+        IEnumerable<Cliente> ListadoClientesEdad();
 
         /// <summary>
         /// Listado clientes con relacion de ventas
         /// </summary>
         /// <returns></returns>
-        ObservableCollection<Cliente> ListadoClientesVentas();
+        IEnumerable<Cliente> ListadoClientesVentas(int identificacionCliente);
     }
 }
