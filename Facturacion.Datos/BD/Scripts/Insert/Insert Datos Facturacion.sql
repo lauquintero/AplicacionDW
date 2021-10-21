@@ -1,3 +1,5 @@
+DBCC CHECKIDENT (Facturacion, RESEED, 0)
+go
 insert into Facturacion ([FAC_IdProducto],[FAC_IdCliente],[FAC_FechaVenta])
 values (1,1,'2000-05-02')
 insert into Facturacion ([FAC_IdProducto],[FAC_IdCliente],[FAC_FechaVenta])

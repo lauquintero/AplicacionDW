@@ -4,8 +4,9 @@
 
 export const environment = {
   urlServices : "http://localhost:3000/",
-  urlbackend : "http://localhost:29958/",
+  // urlbackend : "http://localhost:58284/",
   //urlbackend : "https://localhost:44344/",
+  urlbackend : "http://localhost/FacturacionDW/",
   production: false,
   cantidadPagina : 10
 };

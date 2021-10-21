@@ -10,8 +10,6 @@ declare function  init_plugins();
 })
 export class PagesComponent implements OnInit {
 
-  visibleModal = true
-
   constructor(private _settingService : SettingService) {
     _settingService.loadSettingLocalStorage()
   }
@@ -19,10 +17,4 @@ export class PagesComponent implements OnInit {
   ngOnInit(): void {
     init_plugins()
   }
-
-  CerrarModal(value)
-  {
-    this.visibleModal = value
-  }
-
 }

@@ -56,11 +56,37 @@ namespace Facturacion.Negocio.Implementaciones
                           .ToList();
             }
             return Result;
-        }
+        }         
 
-        public IEnumerable<Cliente> ListadoClientes(int identificacionCliente)
+        public string ProximaCompraEstimada(int identificacionCliente)
         {
-            throw new NotImplementedException();
+            IEnumerable<Entidades.Facturacion> listado = RepositorioCliente.ListadoClienteVentas();
+            ObservableCollection<int> _listpromedio = new ObservableCollection<int>();
+            List<Entidades.Facturacion> query = null;
+            string Result = string.Empty; 
+
+            if (listado.Count() > 0)
+            {
+                var UltimaCompra = listado.Where(x => x.Cliente.Identificacion == identificacionCliente.ToString()).Max(x => x.FechaVenta);
+
+                query = listado.Where(x => x.Cliente.Identificacion == identificacionCliente.ToString()).OrderByDescending(x=> x.FechaVenta).Take(10).ToList();
+
+                if (query.Count() <= 1)
+                    return "No se puede predecir la proxima fecha de comprar por no tener datos suficientes para la prediccion";
+                
+                for (int i = 0; i < query.Count() -1; i++)
+                {                          
+                    if (query[i].FechaVenta.Year == query[i+1].FechaVenta.Year)
+                    {
+                        _listpromedio.Add((query[i].FechaVenta - query[i+1].FechaVenta).Days);
+                    } 
+                }
+
+                var promedio = _listpromedio.Average();
+
+                Result = UltimaCompra.AddDays(promedio).ToShortDateString();                 
+            }
+            return Result;
         }
     }
 }

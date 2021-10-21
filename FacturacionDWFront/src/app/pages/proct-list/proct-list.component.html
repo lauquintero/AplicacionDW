@@ -1,0 +1,27 @@
+<dx-button
+    text="Producto Stock"
+    (onClick)="productStock()">
+</dx-button>
+
+<dx-button
+    text="Producto Año"
+    (onClick)="productAno()">
+</dx-button>
+
+<dx-data-grid
+    id="gridContainer"
+    [dataSource]="productos"
+    keyExpr="idProducto"
+    [columns]="['idProducto', 'nombre', 'valor', 'cantidad', 'fechaCreacion']"
+    [showBorders]="false">
+</dx-data-grid>
+
+<dx-data-grid
+    id="gridContainer2"
+    [dataSource]="productos"
+    keyExpr="idProducto"
+    [columns]="['nombre', 'Mes', 'Valor']"
+    [showBorders]="false">
+</dx-data-grid>
+
+

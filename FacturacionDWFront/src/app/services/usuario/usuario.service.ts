@@ -79,25 +79,14 @@ export class UsuarioService {
 
 
   logout(){
-    if(localStorage.getItem("id")){
-      localStorage.removeItem("id")
-      localStorage.removeItem("user")
+    if(localStorage.getItem("token")){
       localStorage.removeItem("token")
-      localStorage.removeItem("menu")
     }
     clearInterval(this.interval)
     this._router.navigate(['/login'])
   }
 
   getUser(){
-    let userjson = JSON.parse(localStorage.getItem("user"));
-    this.user = new usuarioModelo()
-    this.user._id = userjson._id
-    this.user.img = userjson.img
-    this.user.name = userjson.name
-    this.user.email = userjson.email
-    this.user.role = userjson.role
-    
   }
 
 
@@ -124,10 +113,7 @@ export class UsuarioService {
   }
 
   putFile(file : File){
-    //let param = { params:this.getParam() } 
     this.getUser()
-    // let formData = new FormData()
-    // formData.set("file", file)
     return this._uploadFileService.loadFile(file,'usuarios',this.user._id).subscribe(result => {
       if(result){
         let user  = localStorage.getItem("user")
@@ -141,20 +127,6 @@ export class UsuarioService {
       }
       return result
     })
-
-    // return this.http.put(this.URL + 'upload/usuarios/'+ this.user._id, formData , param ).pipe(map((result : any)=>{
-    //   if(result){
-    //     let user  = localStorage.getItem("user")
-    //     if(user){
-    //       let userobjec : any = JSON.parse(user)
-    //       userobjec.img = result.img
-    //       localStorage.setItem("user", JSON.stringify(userobjec))
-    //       this.getUser()
-    //       Swal.fire("upload file", "","success")
-    //     }
-    //   }
-    //   return result
-    // }))
   }
 
   getUsuarios(desde,cantidad){
@@ -169,10 +141,6 @@ export class UsuarioService {
   }
 
   deleteUser(id : string){
-    
     return this.http.delete(this.URL+'usuario/'+id).pipe(map(result=>result))
   }
-
-
-
 }

@@ -33,7 +33,6 @@ export class HeaderComponent implements OnInit {
 
   getEmail(event: Event) {
     event.preventDefault();
-    //console.log(this.emailCtrl.value);
   }
 
   logout(){

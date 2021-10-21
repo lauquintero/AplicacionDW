@@ -1,3 +1,5 @@
+DBCC CHECKIDENT (Productos, RESEED, 0)
+go
 insert into dbo.Productos ([PRO_Nombre],[PRO_Valor],[PRO_Cantidad],[PRO_FechaCreacion])
 values ('Bateria AA',2000,4,GETDATE())
 insert into dbo.Productos ([PRO_Nombre],[PRO_Valor],[PRO_Cantidad],[PRO_FechaCreacion])

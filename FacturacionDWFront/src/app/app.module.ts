@@ -19,7 +19,6 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { InterceptorService } from './services/interceptor/interceptor.service';
 
 
-
 @NgModule({
   declarations: [	
     AppComponent,
@@ -32,7 +31,7 @@ import { InterceptorService } from './services/interceptor/interceptor.service';
     //PagesModule,
     ServiceModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [
     {  provide: HTTP_INTERCEPTORS , useClass : InterceptorService , multi : true}

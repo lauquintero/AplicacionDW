@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SettingService,SharedService,SidebarService,UsuarioService , GuardGuard 
-  , UploadFileService , ModelUploadService, HospitalService,DoctorService, SearchService,AdminGuard} from './service.index'
+import { SettingService,SharedService,SidebarService,UsuarioService , GuardGuard , UploadFileService , SearchService,AdminGuard} from './service.index'
 import { HttpClientModule } from '@angular/common/http';
 
 
@@ -14,9 +13,7 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule
   ],
   providers : [
-    SettingService,SharedService,SidebarService,UsuarioService, GuardGuard , UploadFileService , ModelUploadService, 
-    HospitalService , DoctorService, AdminGuard , SearchService,
-    
+    SettingService,SharedService,SidebarService,UsuarioService, GuardGuard , UploadFileService  , AdminGuard , SearchService,
   ]
 
 })

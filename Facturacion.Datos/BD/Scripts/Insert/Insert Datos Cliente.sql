@@ -1,3 +1,5 @@
+DBCC CHECKIDENT (Clientes, RESEED, 0)
+go
 insert into Clientes ([CLI_Nombre],[CLI_Apellidos],[CLI_FechaNacimiento],[CLI_Identificacion])
 values ('Laura','Guzman','1984-02-01',11125);
 insert into Clientes ([CLI_Nombre],[CLI_Apellidos],[CLI_FechaNacimiento],[CLI_Identificacion])

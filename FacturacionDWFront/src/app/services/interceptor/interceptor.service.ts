@@ -1,4 +1,4 @@
-import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpParams, HttpRequest } from '@angular/common/http';
+import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpParams, HttpRequest , HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/internal/operators';
@@ -14,12 +14,13 @@ export class InterceptorService implements HttpInterceptor {
     console.log('interceptor')
     let token =  JSON.parse(localStorage.getItem("token"))
     let params = new HttpParams()
+    let header = new HttpHeaders()
 
-    if(token){
-       //params = new HttpParams().set("token",token)
-    }
+    const headers = req.clone({
+      headers: req.headers.set('Authorization', `Bearer ${token}`)
+    });
 
-    return next.handle(req.clone( {params})).pipe(     
+    return next.handle(headers).pipe(     
       catchError(this.mensajeError)
     )
 
@@ -29,6 +30,4 @@ export class InterceptorService implements HttpInterceptor {
   mensajeError(error : HttpErrorResponse){
     return throwError(error)
   }
-
-  //let token =  JSON.parse(this.getToken().toString())
 }

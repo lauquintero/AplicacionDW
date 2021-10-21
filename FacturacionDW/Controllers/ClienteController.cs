@@ -2,6 +2,7 @@
 using Facturacion.Negocio.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.ObjectModel;
 
 namespace FacturacionDW.Controllers
@@ -33,6 +34,18 @@ namespace FacturacionDW.Controllers
         public ActionResult<ObservableCollection<Cliente>> GetClientesEdad()
         {
             var result = NegocioCliente.ListadoClientesEdad();
+            return Ok(result);
+        }
+
+        /// <summary>
+        /// obtienes un estimado de la proxima fecha de compra 
+        /// </summary>
+        /// <returns>ObservableCollection<Cliente></returns>
+        [HttpPost]
+        [Route("ProximaCompraEstimada")]
+        public ActionResult<string> GetClienteFechaProximaCompra(int identificacion )
+        {
+            var result = NegocioCliente.ProximaCompraEstimada(identificacion);
             return Ok(result);
         }
     }

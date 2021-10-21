@@ -24,6 +24,7 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/devextreme/dist/css/dx.light.css",
               "src/styles.css"
             ],
             "scripts": [],
@@ -127,6 +128,6 @@
   },
   "defaultProject": "adminpro",
   "cli": {
-    "analytics": "4f76f49b-a5ad-43c4-b373-90995d2df972"
+    "analytics": false
   }
 }

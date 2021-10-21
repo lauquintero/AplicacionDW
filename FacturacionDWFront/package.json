@@ -20,6 +20,8 @@
     "@angular/platform-browser-dynamic": "~11.0.9",
     "@angular/router": "~11.0.9",
     "chart.js": "^2.9.4",
+    "devextreme": "^21.1.6",
+    "devextreme-angular": "^21.1.6",
     "ng2-charts": "^2.4.2",
     "rxjs": "~6.6.0",
     "sweetalert2": "^10.14.0",

@@ -17,7 +17,7 @@ namespace Facturacion.Negocio.Interfaces
         /// <summary>
         /// Listado clientes con relacion de ventas
         /// </summary>
-        /// <returns></returns>
-        IEnumerable<Cliente> ListadoClientesVentas(int identificacionCliente);
+        /// <returns>string</returns>
+        string ProximaCompraEstimada(int identificacionCliente);
     }
 }

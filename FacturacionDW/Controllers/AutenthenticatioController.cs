@@ -22,7 +22,7 @@ namespace FacturacionDW.Controllers
         {
             var user = Authenticate();
             var token = TokenService.GenerateToken(user);
-            return Ok(token);
+            return Ok(new ResponseToken { Token = token });
         }
 
         private Usuario Authenticate()
